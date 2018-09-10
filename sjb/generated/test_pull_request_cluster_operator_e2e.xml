@@ -311,6 +311,10 @@ cd &#34;\${HOME}&#34;
 export PATH=&#34;\${PATH}:/data/src/github.com/openshift/origin/_output/local/bin/linux/amd64&#34;
 sudo mkdir -p /var/lib/origin
 cd /var/lib/origin
+# Workaround for oc cluster up creating a directory when config.json is not present
+sudo mkdir /root/.docker
+sudo touch /root/.docker/config.json
+# End workaround
 sudo env &#34;PATH=\${PATH}&#34; oc cluster up --tag=latest
 sudo env &#34;PATH=\${PATH}&#34; oc login -u system:admin
 sudo env &#34;PATH=\${PATH}&#34; oc adm policy add-cluster-role-to-user cluster-admin developer
